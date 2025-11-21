@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 import { categoryData } from '../lib/categoryData';
 
 const HeaderDropdown = () => {
@@ -42,7 +42,7 @@ const HeaderDropdown = () => {
         <div className="absolute z-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical">
             {Object.values(categoryData).map((category) => (
-              <Link
+              <ProxyLink
                 key={category.id}
                 href={`/${category.id}`}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-600"
@@ -50,7 +50,7 @@ const HeaderDropdown = () => {
               >
                 <span className="mr-2">{category.icon}</span>
                 {category.title}
-              </Link>
+              </ProxyLink>
             ))}
           </div>
         </div>
