@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useProxyAwareLinks } from '../utils/linkHelpers';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const { getHref } = useProxyAwareLinks();
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      router.push(getHref(`/search?q=${encodeURIComponent(searchQuery.trim())}`));
     }
   };
 
