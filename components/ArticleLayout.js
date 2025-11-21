@@ -1,11 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
+import { useProxyAwareLinks } from '../utils/linkHelpers';
 import { categoryData } from '../lib/categoryData';
 import CollapsibleSidebar from './CollapsibleSidebar';
 import HeaderDropdown from './HeaderDropdown';
 
 export default function ArticleLayout({ children, title, description, currentArticleId, categoryId, sidebarArticles = [], allCategories = {} }) {
+  const { getAssetPath } = useProxyAwareLinks();
   // Get current category from static data
   const currentCategory = categoryId && categoryData[categoryId] ? categoryData[categoryId] : null;
   
@@ -27,7 +29,7 @@ export default function ArticleLayout({ children, title, description, currentArt
         <title>{title || 'MatchMint Help Center'}</title>
         <meta name="description" content={description || 'Find answers to your questions about MatchMint products and services.'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={getAssetPath('/favicon.ico')} />
       </Head>
       
       <main className="min-h-screen bg-gray-50">
@@ -35,22 +37,22 @@ export default function ArticleLayout({ children, title, description, currentArt
           <div className="container-custom py-4">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-white">
-                <Link href="/">MatchMint Help Center</Link>
+                <ProxyLink href="/">MatchMint Help Center</ProxyLink>
               </h1>
               <nav>
                 <ul className="flex space-x-6">
                   <li>
-                    <Link href="/" className="text-white hover:text-secondary-200 transition duration-300">
+                    <ProxyLink href="/" className="text-white hover:text-secondary-200 transition duration-300">
                       Home
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
                     <HeaderDropdown />
                   </li>
                   <li>
-                    <Link href="/contact" className="text-white hover:text-secondary-200 transition duration-300">
+                    <ProxyLink href="/contact" className="text-white hover:text-secondary-200 transition duration-300">
                       Contact
-                    </Link>
+                    </ProxyLink>
                   </li>
                 </ul>
               </nav>
@@ -62,9 +64,9 @@ export default function ArticleLayout({ children, title, description, currentArt
           <nav className="text-sm mb-6">
             <ol className="flex flex-wrap items-center space-x-2">
               <li>
-                <Link href="/" className="text-primary-600 hover:underline">
+                <ProxyLink href="/" className="text-primary-600 hover:underline">
                   Home
-                </Link>
+                </ProxyLink>
               </li>
               <li className="text-gray-400">
                 <span aria-hidden="true">/</span>
@@ -72,9 +74,9 @@ export default function ArticleLayout({ children, title, description, currentArt
               {categoryId && (
                 <>
                   <li>
-                    <Link href={`/${categoryId}`} className="text-primary-600 hover:underline">
+                    <ProxyLink href={`/${categoryId}`} className="text-primary-600 hover:underline">
                       {categoryTitle}
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li className="text-gray-400">
                     <span aria-hidden="true">/</span>
@@ -119,44 +121,44 @@ export default function ArticleLayout({ children, title, description, currentArt
                 <h3 className="text-xl font-semibold mb-4 text-secondary-400">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link href="/" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Home
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/delivery" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/delivery" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Delivery
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/order-processing" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/order-processing" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Order Processing
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/orders" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/orders" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Orders
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/payments" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/payments" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Payments
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/returns-refunds" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/returns-refunds" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Returns & Refunds
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/technical" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/technical" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Technical Support
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/contact" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <ProxyLink href="/contact" className="text-gray-300 hover:text-secondary-300 transition duration-300">
                       Contact Us
-                    </Link>
+                    </ProxyLink>
                   </li>
                 </ul>
               </div>
