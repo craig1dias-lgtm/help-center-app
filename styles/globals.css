@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import FIFA Header Styles */
+@import './fifa-header.css';
+
 @layer base {
   html {
     scroll-behavior: smooth;
