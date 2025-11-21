@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 import { categoryData } from '../lib/categoryData';
 
 const CollapsibleCategory = ({ category, articles, currentArticleId, isActive, toggleCategory }) => {
@@ -33,7 +33,7 @@ const CollapsibleCategory = ({ category, articles, currentArticleId, isActive, t
           <ul className="py-2">
             {articles.map((article) => (
               <li key={article.id} className="py-1">
-                <Link 
+                <ProxyLink 
                   href={`/articles/${article.id}`}
                   className={`block py-2 px-3 rounded-md transition duration-300 ease-in-out ${
                     currentArticleId === article.id 
@@ -42,7 +42,7 @@ const CollapsibleCategory = ({ category, articles, currentArticleId, isActive, t
                   }`}
                 >
                   {article.title}
-                </Link>
+                </ProxyLink>
               </li>
             ))}
           </ul>
