@@ -35,11 +35,6 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
                       Contact
                     </Link>
                   </li>
-                  <li>
-                    <a href="https://matchmint.com" className="inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition duration-300 ease-in-out bg-gradient-accent text-white hover:shadow-lg">
-                      Buy Card
-                    </a>
-                  </li>
                 </ul>
               </nav>
             </div>
