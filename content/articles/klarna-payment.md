@@ -1,9 +1,9 @@
 ---
-title: 'Klarna Payment Guide | Buy Now, Pay Later Options'
-date: '2023-10-13'
-category: 'Payments'
-excerpt: 'Complete guide to using Klarna's flexible payment options for your MatchMint purchases, including installment plans and payment management.'
-keywords: 'klarna payment, buy now pay later, payment installments, klarna checkout, pay in 4, pay in 30 days, klarna financing, payment options, flexible payments, interest-free payments'
+title: "Klarna Payment Guide | Buy Now, Pay Later Options"
+date: "2023-10-13"
+category: "Payments"
+excerpt: "Complete guide to using Klarna's flexible payment options for your MatchMint purchases, including installment plans and payment management."
+keywords: "klarna payment, buy now pay later, payment installments, klarna checkout, pay in 4, pay in 30 days, klarna financing, payment options, flexible payments, interest-free payments"
 ---
 
 # Klarna Payment Guide
