@@ -5,9 +5,34 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <Layout title="MatchMint Help Center" description="Find answers to your questions about MatchMint products and services.">
-      <div className="bg-gradient-primary py-16">
-        <div className="container-custom text-center">
-          <h1 className="text-4xl font-bold mb-6 text-white">How can we help?</h1>
+      <div className="bg-gradient-primary py-16 relative overflow-hidden">
+        {/* Background elements similar to fifa-key-features */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          {/* Circle 1 */}
+          <div className="absolute w-4/5 h-4/5 top-[-15%] left-[-10%] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.4),rgba(59,130,246,0.1))] filter blur-[60px] opacity-70 animate-pulse-slow"></div>
+          
+          {/* Circle 2 */}
+          <div className="absolute w-3/4 h-3/4 bottom-[-10%] right-[-10%] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.4),rgba(79,70,229,0.1))] filter blur-[60px] opacity-70 animate-pulse-slow"></div>
+          
+          {/* Light beam */}
+          <div className="absolute top-[-20%] right-[25%] w-[150px] h-[140%] bg-[linear-gradient(to_bottom,rgba(236,72,153,0),rgba(236,72,153,0.1),rgba(236,72,153,0))] transform rotate-[15deg] filter blur-[20px] animate-light-beam"></div>
+          
+          {/* Floating particles */}
+          <div className="absolute w-3 h-3 top-[15%] left-[15%] rounded-full opacity-30 bg-[linear-gradient(to_right,#ec4899,#9333ea)] shadow-[0_0_20px_rgba(236,72,153,0.7)] animate-float-particle"></div>
+          
+          <div className="absolute w-2 h-2 top-[75%] left-[25%] rounded-full opacity-30 bg-[linear-gradient(to_right,#8b5cf6,#3b82f6)] shadow-[0_0_15px_rgba(139,92,246,0.7)] animate-float-particle-delay"></div>
+          
+          <div className="absolute w-4 h-4 top-[25%] right-[15%] rounded-full opacity-30 bg-[linear-gradient(to_right,#f472b6,#ec4899)] shadow-[0_0_25px_rgba(244,114,182,0.7)] animate-float-particle-long"></div>
+        </div>
+        
+        <div className="container-custom text-center relative z-10">
+          {/* Title badge similar to fifa-key-features */}
+          <div className="inline-flex items-center bg-gradient-badge px-5 py-2 rounded-full text-sm font-semibold tracking-wider uppercase mb-5 text-white border border-secondary-500/30">
+            <span className="block w-2 h-2 rounded-full bg-secondary-400 mr-2"></span>
+            HELP CENTER
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">How can we help?</h1>
           <div className="max-w-2xl mx-auto">
             <form action="/search" method="get" className="relative">
               <input
@@ -18,7 +43,7 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-secondary-500"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -34,10 +59,10 @@ export default function Home() {
           {/* General Information */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">ℹ️</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">General Information</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">General Information</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -45,7 +70,7 @@ export default function Home() {
             </p>
             
             <div className="space-y-2">
-              <Link href="/articles/fifa-card-guide" className="block text-primary-600 hover:text-primary-700 transition duration-300">
+              <Link href="/articles/fifa-card-guide" className="block text-fifa-darkPurple hover:text-secondary-500 transition duration-300">
                 Custom Sports Card Creation Guide
               </Link>
               <Link href="/articles/price-size-guide" className="block text-primary-600 hover:text-primary-700 transition duration-300">
@@ -57,7 +82,7 @@ export default function Home() {
               <Link href="/articles/money-back-guarantee" className="block text-primary-600 hover:text-primary-700 transition duration-300">
                 Money-Back Guarantee
               </Link>
-              <Link href="/general-information" className="block text-sm text-secondary-500 hover:text-secondary-600 mt-2 font-medium">
+              <Link href="/general-information" className="block text-sm text-secondary-500 hover:text-secondary-400 mt-2 font-medium">
                 View all general information articles →
               </Link>
             </div>
@@ -66,10 +91,10 @@ export default function Home() {
           {/* Delivery */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">🚚</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Delivery</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Delivery</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -95,10 +120,10 @@ export default function Home() {
           {/* Order Processing */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">⏱️</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Order Processing</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Order Processing</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -124,10 +149,10 @@ export default function Home() {
           {/* Orders */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">📋</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Orders</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Orders</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -153,10 +178,10 @@ export default function Home() {
           {/* Payments */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">💳</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Payments</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Payments</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -182,10 +207,10 @@ export default function Home() {
           {/* Returns & Refunds */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">↩️</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Returns & Refunds</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Returns & Refunds</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -205,10 +230,10 @@ export default function Home() {
           {/* Technical Support */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">🔧</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Technical Support</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Technical Support</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -231,10 +256,10 @@ export default function Home() {
           {/* Contact */}
           <div className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-shadow p-6 flex flex-col">
             <div className="flex items-center mb-4">
-              <div className="bg-gradient-primary rounded-lg p-3 mr-3">
+              <div className="bg-gradient-badge rounded-lg p-3 mr-3 border border-secondary-500/30 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
                 <span className="text-white text-xl" aria-hidden="true">📞</span>
               </div>
-              <h2 className="text-xl font-semibold text-primary-700">Contact Us</h2>
+              <h2 className="text-xl font-semibold text-fifa-darkPurple">Contact Us</h2>
             </div>
             
             <p className="text-gray-600 mb-6 flex-grow">
@@ -260,7 +285,7 @@ export default function Home() {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Can't find what you're looking for? Our support team is here to help you with any questions or concerns.
           </p>
-          <Link href="/contact" className="btn-primary">
+          <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-md font-medium transition duration-300 ease-in-out bg-gradient-accent text-white hover:shadow-lg">
             Contact Support
           </Link>
         </div>
