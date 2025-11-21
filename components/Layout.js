@@ -23,7 +23,7 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
               <nav>
                 <ul className="flex space-x-6">
                   <li>
-                    <Link href="/" className="text-white hover:text-secondary-200 transition duration-300">
+                    <Link href="/" className="text-white hover:text-secondary-400 transition duration-300 font-medium">
                       Home
                     </Link>
                   </li>
@@ -31,9 +31,14 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
                     <HeaderDropdown />
                   </li>
                   <li>
-                    <Link href="/contact" className="text-white hover:text-secondary-200 transition duration-300">
+                    <Link href="/contact" className="text-white hover:text-secondary-400 transition duration-300 font-medium">
                       Contact
                     </Link>
+                  </li>
+                  <li>
+                    <a href="https://matchmint.com" className="inline-flex items-center justify-center px-4 py-2 rounded-md font-medium transition duration-300 ease-in-out bg-gradient-accent text-white hover:shadow-lg">
+                      Buy Card
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -45,7 +50,7 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
           {children}
         </main>
         
-        <footer className="bg-gray-900 text-white">
+        <footer className="bg-fifa-darkPurple text-white">
           <div className="container-custom py-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
@@ -58,42 +63,42 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
                 <h3 className="text-xl font-semibold mb-4 text-secondary-400">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link href="/" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Home
                     </Link>
                   </li>
                   <li>
-                    <Link href="/delivery" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/delivery" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Delivery
                     </Link>
                   </li>
                   <li>
-                    <Link href="/order-processing" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/order-processing" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Order Processing
                     </Link>
                   </li>
                   <li>
-                    <Link href="/orders" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/orders" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Orders
                     </Link>
                   </li>
                   <li>
-                    <Link href="/payments" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/payments" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Payments
                     </Link>
                   </li>
                   <li>
-                    <Link href="/returns-refunds" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/returns-refunds" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Returns & Refunds
                     </Link>
                   </li>
                   <li>
-                    <Link href="/technical" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/technical" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Technical Support
                     </Link>
                   </li>
                   <li>
-                    <Link href="/contact" className="text-gray-300 hover:text-secondary-300 transition duration-300">
+                    <Link href="/contact" className="text-gray-300 hover:text-secondary-400 transition duration-300">
                       Contact Us
                     </Link>
                   </li>
@@ -109,7 +114,7 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
                 </a>
               </div>
             </div>
-            <div className="mt-8 pt-6 border-t border-gray-800">
+            <div className="mt-8 pt-6 border-t border-opacity-20 border-gray-400">
               <p className="text-center text-gray-400">
                 &copy; {new Date().getFullYear()} MatchMint. All rights reserved.
               </p>
