@@ -3,6 +3,7 @@ const express = require('express');
 const next = require('next');
 const { Shopify } = require('@shopify/shopify-api');
 const cors = require('cors');
+const crypto = require('crypto'); // Added for App Proxy verification
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -59,6 +60,38 @@ app.prepare().then(() => {
     // Set a flag for use in the Next.js app
     req.isShopifyRequest = shopifyHost || shopifyReferrer || !!shopParam;
     next();
+  });
+
+  // App Proxy route handler
+  server.get('/shopify-proxy', (req, res) => {
+    // Verify the request is from Shopify
+    const query = { ...req.query };
+    const signature = query.signature;
+    delete query.signature;
+    
+    // Sort the parameters
+    const ordered = {};
+    Object.keys(query).sort().forEach(key => {
+      ordered[key] = query[key];
+    });
+    
+    // Create the message string and calculate the HMAC
+    const message = Object.keys(ordered)
+      .map(key => `${key}=${ordered[key]}`)
+      .join('');
+      
+    const hmac = crypto
+      .createHmac('sha256', process.env.SHOPIFY_API_SECRET)
+      .update(message)
+      .digest('hex');
+      
+    // Verify the signature
+    if (hmac !== signature) {
+      return res.status(401).send('Invalid signature');
+    }
+    
+    // If signature is valid, pass the request to Next.js
+    return handle(req, res);
   });
 
   // Set up Shopify authentication and webhook handling
@@ -135,6 +168,10 @@ app.prepare().then(() => {
 
   // All other routes go to Next.js
   server.all('*', (req, res) => {
+    // Check if this might be an App Proxy request
+    if (req.path.includes('/apps/help-center') || req.query.signature) {
+      console.log('Possible App Proxy request detected:', req.path);
+    }
     return handle(req, res);
   });
 
