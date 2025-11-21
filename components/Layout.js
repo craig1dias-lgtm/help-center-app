@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useProxy } from './ProxyContext';
+import getConfig from 'next/config';
 
 // Inline FIFAHeader component to avoid import issues
 const FIFAHeader = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isInShopifyProxy, baseUrl } = useProxy();
+  const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
+  
+  // Determine the base path for assets
+  const basePath = baseUrl || publicRuntimeConfig.basePath || '';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,12 +43,13 @@ const FIFAHeader = () => {
           <a href="https://www.matchmintfootballcards.com/" className="fifa-header__heading-link">
             <div className="fifa-header__heading-logo-wrapper">
               <Image
-                src="/images/matchmint-logo.png"
+                src={`${basePath}/images/matchmint-logo.png`}
                 alt="MatchMint"
                 className="fifa-header__heading-logo"
                 width={120}
                 height={40}
                 priority
+                unoptimized
               />
             </div>
           </a>
@@ -130,16 +138,30 @@ const FIFAHeader = () => {
 };
 
 const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find answers to your questions about MatchMint products and services.' }) => {
+  const { isInShopifyProxy, baseUrl } = useProxy();
+  const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
+  
+  // Determine the base path for assets
+  const basePath = baseUrl || publicRuntimeConfig.basePath || '';
+
   return (
     <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`${basePath}/favicon.ico`} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        
+        {/* Force load styles with absolute URLs when in proxy */}
+        {isInShopifyProxy && (
+          <>
+            <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} />
+            <link rel="stylesheet" href={`${basePath}/styles/fifa-header.css`} />
+          </>
+        )}
       </Head>
       
       <div className="min-h-screen flex flex-col">
