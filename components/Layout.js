@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 import Image from 'next/image';
 import { useProxy } from './ProxyContext';
+import { useProxyAwareLinks } from '../utils/linkHelpers';
 import getConfig from 'next/config';
 
 // Inline FIFAHeader component to avoid import issues
@@ -10,6 +11,7 @@ const FIFAHeader = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isInShopifyProxy, baseUrl } = useProxy();
+  const { getAssetPath } = useProxyAwareLinks();
   const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
   
   // Determine the base path for assets
@@ -43,7 +45,7 @@ const FIFAHeader = () => {
           <a href="https://www.matchmintfootballcards.com/" className="fifa-header__heading-link">
             <div className="fifa-header__heading-logo-wrapper">
               <Image
-                src={`${basePath}/images/matchmint-logo.png`}
+                src={getAssetPath('/images/matchmint-logo.png')}
                 alt="MatchMint"
                 className="fifa-header__heading-logo"
                 width={120}
@@ -71,19 +73,19 @@ const FIFAHeader = () => {
               </a>
             </li>
             <li className="fifa-list-menu__item">
-              <Link href="/pages/support-page" className="fifa-list-menu__item--link">
+              <ProxyLink href="/pages/support-page" className="fifa-list-menu__item--link">
                 SUPPORT
-              </Link>
+              </ProxyLink>
             </li>
             <li className="fifa-list-menu__item">
-              <Link href="/pages/guides" className="fifa-list-menu__item--link">
+              <ProxyLink href="/pages/guides" className="fifa-list-menu__item--link">
                 GUIDES
-              </Link>
+              </ProxyLink>
             </li>
             <li className="fifa-list-menu__item">
-              <Link href="/" className="fifa-list-menu__item--link fifa-list-menu__item--active">
+              <ProxyLink href="/" className="fifa-list-menu__item--link fifa-list-menu__item--active">
                 HELP CENTER
-              </Link>
+              </ProxyLink>
             </li>
           </ul>
         </nav>
@@ -116,19 +118,19 @@ const FIFAHeader = () => {
               </a>
             </li>
             <li className="fifa-mobile-menu__item">
-              <Link href="/pages/support-page" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
+              <ProxyLink href="/pages/support-page" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
                 SUPPORT
-              </Link>
+              </ProxyLink>
             </li>
             <li className="fifa-mobile-menu__item">
-              <Link href="/pages/guides" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
+              <ProxyLink href="/pages/guides" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
                 GUIDES
-              </Link>
+              </ProxyLink>
             </li>
             <li className="fifa-mobile-menu__item">
-              <Link href="/" className="fifa-mobile-menu__link fifa-mobile-menu__link--active" onClick={toggleMobileMenu}>
+              <ProxyLink href="/" className="fifa-mobile-menu__link fifa-mobile-menu__link--active" onClick={toggleMobileMenu}>
                 HELP CENTER
-              </Link>
+              </ProxyLink>
             </li>
           </ul>
         </div>
@@ -139,6 +141,7 @@ const FIFAHeader = () => {
 
 const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find answers to your questions about MatchMint products and services.' }) => {
   const { isInShopifyProxy, baseUrl } = useProxy();
+  const { getAssetPath } = useProxyAwareLinks();
   const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
   
   // Determine the base path for assets
@@ -150,7 +153,7 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href={`${basePath}/favicon.ico`} />
+        <link rel="icon" href={getAssetPath('/favicon.ico')} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -158,8 +161,8 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
         {/* Force load styles with absolute URLs when in proxy */}
         {isInShopifyProxy && (
           <>
-            <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} />
-            <link rel="stylesheet" href={`${basePath}/styles/fifa-header.css`} />
+            <link rel="stylesheet" href={getAssetPath('/_next/static/css/app.css')} />
+            <link rel="stylesheet" href={getAssetPath('/styles/fifa-header.css')} />
           </>
         )}
       </Head>
@@ -185,44 +188,44 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
                 <h3 className="text-xl font-semibold mb-4 text-fifa-light-pink">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link href="/" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Home
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/delivery" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/delivery" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Delivery
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/order-processing" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/order-processing" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Order Processing
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/orders" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/orders" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Orders
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/payments" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/payments" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Payments
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/returns-refunds" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/returns-refunds" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Returns & Refunds
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/technical" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/technical" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Technical Support
-                    </Link>
+                    </ProxyLink>
                   </li>
                   <li>
-                    <Link href="/contact" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
+                    <ProxyLink href="/contact" className="text-gray-300 hover:text-fifa-light-pink transition duration-300">
                       Contact Us
-                    </Link>
+                    </ProxyLink>
                   </li>
                 </ul>
               </div>
