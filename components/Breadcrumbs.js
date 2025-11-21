@@ -1,14 +1,14 @@
 import React from 'react';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 
 const Breadcrumbs = ({ items }) => {
   return (
     <nav className="text-sm mb-6">
       <ol className="flex flex-wrap items-center space-x-2">
         <li>
-          <Link href="/" className="text-primary-600 hover:underline">
+          <ProxyLink href="/" className="text-primary-600 hover:underline">
             Home
-          </Link>
+          </ProxyLink>
         </li>
         
         {items.map((item, index) => (
@@ -20,9 +20,9 @@ const Breadcrumbs = ({ items }) => {
               {index === items.length - 1 ? (
                 <span className="text-gray-600">{item.label}</span>
               ) : (
-                <Link href={item.href} className="text-primary-600 hover:underline">
+                <ProxyLink href={item.href} className="text-primary-600 hover:underline">
                   {item.label}
-                </Link>
+                </ProxyLink>
               )}
             </li>
           </React.Fragment>
