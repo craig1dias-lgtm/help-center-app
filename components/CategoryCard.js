@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 
 const CategoryCard = ({ category }) => {
   return (
@@ -13,22 +13,22 @@ const CategoryCard = ({ category }) => {
       
       <div className="space-y-2">
         {category.articles.slice(0, 3).map((article) => (
-          <Link 
+          <ProxyLink 
             href={`/articles/${article.id}`}
             key={article.id}
             className="block text-primary-600 hover:underline"
           >
             {article.title}
-          </Link>
+          </ProxyLink>
         ))}
         
         {category.articles.length > 3 && (
-          <Link 
+          <ProxyLink 
             href={`/categories/${category.id}`}
             className="block text-sm text-gray-500 hover:text-primary-600 mt-2"
           >
             View all {category.articles.length} articles →
-          </Link>
+          </ProxyLink>
         )}
       </div>
     </div>
