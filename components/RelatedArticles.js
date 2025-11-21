@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import ProxyLink from './ProxyLink';
 
 const RelatedArticles = ({ articles }) => {
   if (!articles || articles.length === 0) {
@@ -11,7 +11,7 @@ const RelatedArticles = ({ articles }) => {
       <h2 className="text-xl font-semibold mb-4">Related Articles</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {articles.map((article) => (
-          <Link 
+          <ProxyLink 
             href={`/articles/${article.id}`} 
             key={article.id}
             className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
@@ -20,7 +20,7 @@ const RelatedArticles = ({ articles }) => {
             {article.excerpt && (
               <p className="text-sm text-gray-600 mt-1 line-clamp-2">{article.excerpt}</p>
             )}
-          </Link>
+          </ProxyLink>
         ))}
       </div>
     </div>
