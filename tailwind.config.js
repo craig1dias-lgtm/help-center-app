@@ -39,7 +39,14 @@ module.exports = {
           brightPurple: '#9333ea',
           pink: '#ec4899',
           lightPink: '#f472b6',
-        }
+        },
+        'fifa-dark-purple': '#1a103c',
+        'fifa-medium-purple': '#3b1d6c',
+        'fifa-light-purple': '#2a1a5c',
+        'fifa-pink': '#ec4899',
+        'fifa-light-pink': '#f472b6',
+        'fifa-accent-purple': '#9333ea',
+        'fifa-blue-purple': '#8b5cf6',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
@@ -49,6 +56,9 @@ module.exports = {
         'gradient-primary': 'linear-gradient(135deg, #1a103c 0%, #3b1d6c 50%, #2a1a5c 100%)',
         'gradient-accent': 'linear-gradient(to right, #ec4899, #8b5cf6, #9333ea)',
         'gradient-badge': 'linear-gradient(to right, rgba(236, 72, 153, 0.3), rgba(147, 51, 234, 0.3))',
+        'fifa-gradient-bg': 'linear-gradient(135deg, #1a103c 0%, #3b1d6c 50%, #2a1a5c 100%)',
+        'fifa-accent-gradient': 'linear-gradient(to right, #ec4899, #8b5cf6, #9333ea)',
+        'fifa-badge-gradient': 'linear-gradient(to right, rgba(236, 72, 153, 0.3), rgba(147, 51, 234, 0.3))',
       },
       boxShadow: {
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
