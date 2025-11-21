@@ -1,5 +1,7 @@
 import '../styles/globals.css';
 import { ErrorBoundary } from 'react-error-boundary';
+import { ProxyProvider } from '../components/ProxyContext';
+import Head from 'next/head';
 
 function ErrorFallback({ error }) {
   return (
@@ -19,7 +21,16 @@ function ErrorFallback({ error }) {
 function MyApp({ Component, pageProps }) {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Component {...pageProps} />
+      <ProxyProvider>
+        <Head>
+          {/* Force styles to load with absolute URLs when needed */}
+          <base href={process.env.NEXT_PUBLIC_HOST || '/'} />
+          
+          {/* Ensure styles are properly loaded */}
+          <link rel="stylesheet" href="/_next/static/css/app.css" />
+        </Head>
+        <Component {...pageProps} />
+      </ProxyProvider>
     </ErrorBoundary>
   );
 }
