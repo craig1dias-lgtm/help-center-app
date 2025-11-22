@@ -17,10 +17,10 @@ export default function ArticlePage({ id }) {
       if (id === 'getting-started') {
         setArticle({
           id: 'getting-started',
-          title: 'Getting Started with MatchMint FIFA Cards',
+          title: 'Getting Started with MatchMint Football Cards',
           content: `
             <h2>Welcome to MatchMint!</h2>
-            <p>This guide will help you create your perfect custom FIFA card in just a few simple steps.</p>
+            <p>This guide will help you create your perfect custom football card in just a few simple steps.</p>
             
             <h3>Step 1: Choose Your Card Design</h3>
             <p>Start by selecting the card design that best matches your style. We offer various options including Team of the Year, Icons, and more.</p>
@@ -61,10 +61,10 @@ export default function ArticlePage({ id }) {
       } else if (id === 'image-guidelines') {
         setArticle({
           id: 'image-guidelines',
-          title: 'Image Guidelines for Perfect FIFA Cards',
+          title: 'Image Guidelines for Perfect Football Cards',
           content: `
             <h2>Photo Requirements</h2>
-            <p>To create the best possible FIFA card, please follow these guidelines for your uploaded photo:</p>
+            <p>To create the best possible football card, please follow these guidelines for your uploaded photo:</p>
             
             <h3>Resolution</h3>
             <p>Use a high-resolution image, ideally at least 1000x1000 pixels. Higher resolution images produce better quality cards.</p>
@@ -76,7 +76,7 @@ export default function ArticlePage({ id }) {
             <p>A simple, uncluttered background works best. Our system can remove backgrounds, but starting with a clean background improves results.</p>
             
             <h3>Pose</h3>
-            <p>A straight-on or slightly angled pose works best, similar to professional footballer photos on FIFA cards.</p>
+            <p>A straight-on or slightly angled pose works best, similar to professional footballer photos on official cards.</p>
             
             <h3>File Format</h3>
             <p>We accept JPG, PNG, and HEIC formats. Maximum file size is 10MB.</p>
