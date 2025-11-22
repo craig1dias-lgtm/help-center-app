@@ -16,10 +16,19 @@ export const ProxyProvider = ({ children }) => {
   });
   
   useEffect(() => {
-    // Check if we're in the Shopify proxy
-    const isInProxy = window.location.pathname.includes('/apps/help-center') || 
-                     window.location.href.includes('?hmac=') ||
-                     window.location.host.includes('myshopify.com');
+    // Check if we're in the Shopify proxy - more robust detection
+    const isInProxy = typeof window !== 'undefined' && (
+      window.location.pathname.includes('/apps/help-center') || 
+      window.location.href.includes('?hmac=') ||
+      window.location.host.includes('myshopify.com') ||
+      document.querySelector('meta[name="shopify-digital-wallet"]') !== null
+    );
+    
+    console.log('Proxy detection:', { 
+      path: typeof window !== 'undefined' ? window.location.pathname : 'N/A',
+      host: typeof window !== 'undefined' ? window.location.host : 'N/A',
+      isInProxy 
+    });
     
     // Try to extract shop domain from query params
     const urlParams = new URLSearchParams(window.location.search);
@@ -53,7 +62,7 @@ export const ProxyProvider = ({ children }) => {
     });
     
     // Debug info
-    console.log('Proxy Context:', { isInProxy, shopDomain, baseUrl });
+    console.log('Proxy Context:', { isInProxy, shopDomain, baseUrl, proxyPath });
   }, []);
   
   return (
