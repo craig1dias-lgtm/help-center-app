@@ -4,6 +4,7 @@ import ProxyLink from './ProxyLink';
 import Image from 'next/image';
 import { useProxy } from './ProxyContext';
 import { useProxyAwareLinks } from '../utils/linkHelpers';
+import QueryRouter from './QueryRouter';
 import getConfig from 'next/config';
 
 // Inline FIFAHeader component to avoid import issues
@@ -170,6 +171,9 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
       </Head>
       
       <div className="min-h-screen flex flex-col">
+        {/* Query Router for Shopify proxy */}
+        <QueryRouter />
+        
         {/* FIFA Header */}
         <FIFAHeader />
         
