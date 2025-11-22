@@ -1,6 +1,6 @@
 import React from 'react';
 import ArticleLayout from '../components/ArticleLayout';
-import Link from 'next/link';
+import ProxyLink from '../components/ProxyLink';
 import { getArticlesByCategory, getAllCategories } from '../lib/articles';
 
 // Define the delivery article links for the main content
@@ -67,13 +67,13 @@ export default function Delivery({ deliveryArticles, allCategories }) {
         
         <div className="space-y-2 mb-8">
           {deliveryLinks.map((link) => (
-            <Link 
+            <ProxyLink 
               key={link.id}
               href={link.href} 
               className="block text-primary-600 hover:text-primary-700 transition duration-300"
             >
               {link.title}
-            </Link>
+            </ProxyLink>
           ))}
         </div>
       </div>
