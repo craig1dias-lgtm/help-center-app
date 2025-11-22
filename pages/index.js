@@ -5,6 +5,7 @@ import HomePage from '../components/HomePage';
 import ArticlePage from '../components/ArticlePage';
 import CategoryPage from '../components/CategoryPage';
 import SearchPage from '../components/SearchPage';
+import ContactPage from '../components/ContactPage';
 import { useProxy } from '../components/ProxyContext';
 
 // This is a fallback component in case the imported components don't exist
@@ -45,7 +46,9 @@ export default function IndexPage() {
         case 'search':
           setPageComponent(<SearchPage query={id} />);
           return;
-        // We'll add other cases later
+        case 'contact':
+          setPageComponent(<ContactPage />);
+          return;
       }
     }
     
