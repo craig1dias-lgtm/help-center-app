@@ -3,14 +3,16 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ProxyContext = createContext({
   isInShopifyProxy: false,
   shopDomain: null,
-  baseUrl: ''
+  baseUrl: '',
+  proxyPath: ''
 });
 
 export const ProxyProvider = ({ children }) => {
   const [proxyState, setProxyState] = useState({
     isInShopifyProxy: false,
     shopDomain: null,
-    baseUrl: ''
+    baseUrl: '',
+    proxyPath: ''
   });
   
   useEffect(() => {
@@ -24,17 +26,30 @@ export const ProxyProvider = ({ children }) => {
     const shopDomain = urlParams.get('shop') || 
                       (window.location.host.includes('myshopify.com') ? window.location.host : null);
     
-    // Determine base URL for assets
+    // Determine base URL for assets and proxy path
     let baseUrl = '';
+    let proxyPath = '';
+    
     if (isInProxy) {
-      // When in proxy, we need to use absolute URLs
+      // When in proxy, we need to use absolute URLs for external resources
       baseUrl = process.env.NEXT_PUBLIC_HOST || 'https://help-center-app-three.vercel.app';
+      
+      // Extract the proxy path from the URL
+      if (window.location.pathname.includes('/apps/help-center')) {
+        // Extract the proxy path (e.g., /apps/help-center)
+        const pathMatch = window.location.pathname.match(/(\/apps\/help-center)(?:\/|$)/);
+        if (pathMatch && pathMatch[1]) {
+          proxyPath = pathMatch[1];
+          console.log('Detected proxy path:', proxyPath);
+        }
+      }
     }
     
     setProxyState({
       isInShopifyProxy: isInProxy,
       shopDomain: shopDomain,
-      baseUrl: baseUrl
+      baseUrl: baseUrl,
+      proxyPath: proxyPath
     });
     
     // Debug info
