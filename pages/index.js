@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import HomePage from '../components/HomePage';
+import ArticlePage from '../components/ArticlePage';
+import CategoryPage from '../components/CategoryPage';
+import SearchPage from '../components/SearchPage';
 import { useProxy } from '../components/ProxyContext';
 
 // This is a fallback component in case the imported components don't exist
@@ -22,9 +25,28 @@ export default function IndexPage() {
     const { page, id } = router.query;
     
     // If we're in the Shopify proxy and have a page parameter, handle routing
-    if (isInShopifyProxy && page) {
+    if (page) {
       console.log('Query parameter routing:', page, id);
-      // We'll add the specific component routing later
+      
+      // Handle different pages
+      switch(page) {
+        case 'articles':
+          if (id) {
+            setPageComponent(<ArticlePage articleId={id} />);
+            return;
+          }
+          break;
+        case 'categories':
+          if (id) {
+            setPageComponent(<CategoryPage categoryId={id} />);
+            return;
+          }
+          break;
+        case 'search':
+          setPageComponent(<SearchPage query={id} />);
+          return;
+        // We'll add other cases later
+      }
     }
     
     // Default to the home page
