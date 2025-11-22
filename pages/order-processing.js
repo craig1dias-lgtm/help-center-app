@@ -1,6 +1,6 @@
 import React from 'react';
 import ArticleLayout from '../components/ArticleLayout';
-import Link from 'next/link';
+import ProxyLink from '../components/ProxyLink';
 import { getArticlesByCategory, getAllCategories } from '../lib/articles';
 
 export default function OrderProcessing({ orderProcessingArticles, allCategories }) {
@@ -26,13 +26,13 @@ export default function OrderProcessing({ orderProcessingArticles, allCategories
         
         <div className="space-y-2 mb-8">
           {orderProcessingArticles.map((article) => (
-            <Link 
+            <ProxyLink 
               href={`/articles/${article.id}`} 
               key={article.id}
               className="block text-primary-600 hover:text-primary-700 transition duration-300"
             >
               {article.title}
-            </Link>
+            </ProxyLink>
           ))}
         </div>
       </div>
