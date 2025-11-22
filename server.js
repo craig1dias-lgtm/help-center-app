@@ -51,48 +51,8 @@ app.prepare().then(() => {
   // Parse JSON request body
   server.use(express.json());
 
-  // Detect if the request is coming from Shopify
-  server.use((req, res, next) => {
-    const shopifyHost = req.get('host') && req.get('host').includes('myshopify.com');
-    const shopifyReferrer = req.get('referrer') && req.get('referrer').includes('myshopify.com');
-    const shopParam = req.query.shop;
-    
-    // Set a flag for use in the Next.js app
-    req.isShopifyRequest = shopifyHost || shopifyReferrer || !!shopParam;
-    next();
-  });
-
-  // App Proxy route handler
-  server.get('/shopify-proxy', (req, res) => {
-    // Verify the request is from Shopify
-    const query = { ...req.query };
-    const signature = query.signature;
-    delete query.signature;
-    
-    // Sort the parameters
-    const ordered = {};
-    Object.keys(query).sort().forEach(key => {
-      ordered[key] = query[key];
-    });
-    
-    // Create the message string and calculate the HMAC
-    const message = Object.keys(ordered)
-      .map(key => `${key}=${ordered[key]}`)
-      .join('');
-      
-    const hmac = crypto
-      .createHmac('sha256', process.env.SHOPIFY_API_SECRET)
-      .update(message)
-      .digest('hex');
-      
-    // Verify the signature
-    if (hmac !== signature) {
-      return res.status(401).send('Invalid signature');
-    }
-    
-    // If signature is valid, pass the request to Next.js
-    return handle(req, res);
-  });
+  // No longer need to detect if request is from Shopify proxy
+  // since we're using a dedicated subdomain
 
   // Set up Shopify authentication and webhook handling
   server.get("/auth", async (req, res) => {
@@ -156,11 +116,9 @@ app.prepare().then(() => {
     });
   });
   
-  // API endpoint to check if the request is from Shopify
+  // API endpoint for context information
   server.get('/api/context', (req, res) => {
     res.status(200).json({
-      isShopifyRequest: req.isShopifyRequest,
-      shop: req.query.shop || null,
       host: req.get('host'),
       referrer: req.get('referrer')
     });
@@ -168,10 +126,6 @@ app.prepare().then(() => {
 
   // All other routes go to Next.js
   server.all('*', (req, res) => {
-    // Check if this might be an App Proxy request
-    if (req.path.includes('/apps/help-center') || req.query.signature) {
-      console.log('Possible App Proxy request detected:', req.path);
-    }
     return handle(req, res);
   });
 
