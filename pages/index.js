@@ -42,14 +42,14 @@ export default function IndexPage() {
         case 'articles':
           if (id) {
             console.log('Loading ArticlePage with id:', id);
-            setPageComponent(<ArticlePage articleId={id} />);
+            setPageComponent(<ArticlePage id={id} />);
             return;
           }
           break;
         case 'categories':
           if (id) {
             console.log('Loading CategoryPage with id:', id);
-            setPageComponent(<CategoryPage categoryId={id} />);
+            setPageComponent(<CategoryPage id={id} />);
             return;
           }
           break;
