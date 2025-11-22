@@ -155,8 +155,36 @@ export default function ArticleLayout({ children, title, description, currentArt
       </Head>
       
       <main className="min-h-screen bg-gray-50">
-        {/* Replace the custom header with the FIFA header */}
+        {/* FIFA Header for branding consistency */}
         <FIFAHeader />
+        
+        {/* Help Center navigation header */}
+        <header className="bg-gradient-primary shadow-md">
+          <div className="container-custom py-4">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-white">
+                <Link href="/">MatchMint Help Center</Link>
+              </h1>
+              <nav>
+                <ul className="flex space-x-6">
+                  <li>
+                    <Link href="/" className="text-white hover:text-secondary-200 transition duration-300">
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <HeaderDropdown />
+                  </li>
+                  <li>
+                    <Link href="/contact" className="text-white hover:text-secondary-200 transition duration-300">
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </header>
         
         <div className="container-custom py-8">
           <nav className="text-sm mb-6">
