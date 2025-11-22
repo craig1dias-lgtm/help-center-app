@@ -19,11 +19,20 @@ export function useProxyAwareLinks() {
     // Ensure path starts with a slash
     const normalizedPath = path && path.startsWith('/') ? path : `/${path || ''}`;
     
+    // Log the current state for debugging
+    console.log('getHref called with:', { 
+      path, 
+      normalizedPath, 
+      isInShopifyProxy, 
+      baseUrl, 
+      proxyPath 
+    });
+    
     // When in proxy, adjust the path
     if (isInShopifyProxy) {
-      // If it's the root path, keep it as is
+      // If it's the root path, keep it as is but ensure we use the proxy path
       if (normalizedPath === '/' || normalizedPath === '/?') {
-        return proxyPath || baseUrl;
+        return proxyPath || '/';
       }
       
       // Convert path-based routes to query parameters
@@ -41,7 +50,7 @@ export function useProxyAwareLinks() {
         const id = pathParts.length >= 2 ? pathParts[1] : '';
         
         // Build the query string
-        let queryPath = `/?page=${page}`;
+        let queryPath = `?page=${page}`;
         if (id) queryPath += `&id=${id}`;
         
         // Add any existing query parameters
@@ -52,12 +61,19 @@ export function useProxyAwareLinks() {
           }
         }
         
-        return `${proxyPath || baseUrl}${queryPath}`;
+        // Make sure we use the proxyPath if available
+        const finalPath = proxyPath ? `${proxyPath}${queryPath}` : queryPath;
+        console.log('Transformed proxy path:', finalPath);
+        return finalPath;
       }
       
       // Fallback to the original behavior
-      return `${proxyPath || baseUrl}${normalizedPath}`;
+      const finalPath = proxyPath ? `${proxyPath}${normalizedPath}` : normalizedPath;
+      console.log('Fallback proxy path:', finalPath);
+      return finalPath;
     } else {
+      // Direct environment - use the path as is
+      console.log('Direct path:', normalizedPath);
       return normalizedPath;
     }
   };
