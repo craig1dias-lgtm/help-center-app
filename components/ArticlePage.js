@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { getSortedArticlesData } from '../lib/articles';
 
 // This is a placeholder component - replace with your actual article page implementation
 export default function ArticlePage({ id }) {
@@ -8,90 +9,80 @@ export default function ArticlePage({ id }) {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    // Simulate fetching article data
+    // Fetch article data from the articles.js library
     setLoading(true);
     
-    // This is where you would normally fetch the article data from your API
-    // For now, we'll use a placeholder
-    setTimeout(() => {
-      if (id === 'getting-started') {
-        setArticle({
-          id: 'getting-started',
-          title: 'Getting Started with MatchMint Football Cards',
-          content: `
-            <h2>Welcome to MatchMint!</h2>
-            <p>This guide will help you create your perfect custom football card in just a few simple steps.</p>
-            
-            <h3>Step 1: Choose Your Card Design</h3>
-            <p>Start by selecting the card design that best matches your style. We offer various options including Team of the Year, Icons, and more.</p>
-            
-            <h3>Step 2: Upload Your Photo</h3>
-            <p>Upload a high-quality photo of yourself or the person you're creating the card for. Make sure it has good lighting and a clear view of the face.</p>
-            
-            <h3>Step 3: Customize Your Card</h3>
-            <p>Add the player name, position, and customize the attributes to create your perfect FIFA card.</p>
-            
-            <h3>Step 4: Review and Order</h3>
-            <p>Review your design, make any final adjustments, and place your order. We'll take care of the rest!</p>
-          `
-        });
-      } else if (id === 'production-shipping-delivery-information') {
-        setArticle({
-          id: 'production-shipping-delivery-information',
-          title: 'Production, Shipping & Delivery Information',
-          content: `
-            <h2>Production Process</h2>
-            <p>Each card is carefully crafted to ensure the highest quality. Our production process typically takes 1-2 business days.</p>
-            
-            <h2>Shipping Options</h2>
-            <p>We offer several shipping options to meet your needs:</p>
-            <ul>
-              <li><strong>Standard Shipping:</strong> 5-7 business days</li>
-              <li><strong>Express Shipping:</strong> 2-3 business days</li>
-              <li><strong>Priority Shipping:</strong> 1-2 business days</li>
-            </ul>
-            
-            <h2>Tracking Your Order</h2>
-            <p>Once your order ships, you'll receive a tracking number via email that allows you to monitor your delivery progress.</p>
-            
-            <h2>International Shipping</h2>
-            <p>We ship worldwide! International orders typically take 7-14 business days to arrive, depending on the destination country.</p>
-          `
-        });
-      } else if (id === 'image-guidelines') {
-        setArticle({
-          id: 'image-guidelines',
-          title: 'Image Guidelines for Perfect Football Cards',
-          content: `
-            <h2>Photo Requirements</h2>
-            <p>To create the best possible football card, please follow these guidelines for your uploaded photo:</p>
-            
-            <h3>Resolution</h3>
-            <p>Use a high-resolution image, ideally at least 1000x1000 pixels. Higher resolution images produce better quality cards.</p>
-            
-            <h3>Lighting</h3>
-            <p>Good lighting is crucial. Natural daylight works best, avoiding harsh shadows on the face.</p>
-            
-            <h3>Background</h3>
-            <p>A simple, uncluttered background works best. Our system can remove backgrounds, but starting with a clean background improves results.</p>
-            
-            <h3>Pose</h3>
-            <p>A straight-on or slightly angled pose works best, similar to professional footballer photos on official cards.</p>
-            
-            <h3>File Format</h3>
-            <p>We accept JPG, PNG, and HEIC formats. Maximum file size is 10MB.</p>
-          `
-        });
-      } else {
-        setArticle({
-          id: id || 'unknown',
-          title: 'Article Not Found',
-          content: '<p>The requested article could not be found.</p>'
-        });
-      }
+    try {
+      // Get all articles
+      const allArticles = getSortedArticlesData();
       
+      // Find the article with the matching ID
+      const foundArticle = allArticles.find(article => article.id === id);
+      
+      if (foundArticle) {
+        // If we found the article, set it in state
+        setArticle({
+          id: foundArticle.id,
+          title: foundArticle.title,
+          content: foundArticle.content
+        });
+        console.log('Found article:', foundArticle.id);
+      } else {
+        // If we couldn't find the article, show a placeholder
+        console.log('Article not found:', id);
+        
+        // Fallback to hardcoded articles for demo purposes
+        if (id === 'customs-import-fees') {
+          setArticle({
+            id: 'customs-import-fees',
+            title: 'Customs & Import Fees | International Shipping Guide',
+            content: `
+              <h2>Understanding Customs & Import Fees</h2>
+              <p>When ordering from MatchMint to be delivered internationally, you may be subject to customs duties and import taxes imposed by your country's customs authority.</p>
+              
+              <h3>What are Customs Duties and Import Taxes?</h3>
+              <p>Customs duties are taxes imposed on goods when they cross international borders. Import taxes are additional fees that may include VAT (Value Added Tax) or GST (Goods and Services Tax) depending on your country.</p>
+              
+              <h3>Who is Responsible for These Fees?</h3>
+              <p>As the recipient of the order, you (the customer) are responsible for paying any customs duties and import taxes. MatchMint is not able to calculate or collect these fees during checkout as they vary by country and are determined by your local customs authority.</p>
+            `
+          });
+        } else if (id === 'production-shipping-delivery-information') {
+          setArticle({
+            id: 'production-shipping-delivery-information',
+            title: 'Production, Shipping & Delivery Information',
+            content: `
+              <h2>Production Process</h2>
+              <p>Each card is carefully crafted to ensure the highest quality. Our production process typically takes 1-2 business days.</p>
+              
+              <h2>Shipping Options</h2>
+              <p>We offer several shipping options to meet your needs:</p>
+              <ul>
+                <li><strong>Standard Shipping:</strong> 5-7 business days</li>
+                <li><strong>Express Shipping:</strong> 2-3 business days</li>
+                <li><strong>Priority Shipping:</strong> 1-2 business days</li>
+              </ul>
+            `
+          });
+        } else {
+          // Generic article not found message
+          setArticle({
+            id: id || 'unknown',
+            title: 'Article Not Found',
+            content: '<p>The requested article could not be found. Please check the URL or return to the help center homepage.</p>'
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error loading article:', error);
+      setArticle({
+        id: id || 'error',
+        title: 'Error Loading Article',
+        content: '<p>There was an error loading this article. Please try again later.</p>'
+      });
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   }, [id]);
   
   if (loading) {
