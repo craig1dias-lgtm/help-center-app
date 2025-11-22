@@ -62,27 +62,36 @@
   
   // Verify internal links have the correct format
   if (isInProxy) {
-    // In proxy mode, internal links should include the base URL
+    // In proxy mode, internal links should include the proxy path
+    const proxyPath = document.querySelector('meta[name="proxy-path"]')?.getAttribute('content');
     const baseUrl = document.querySelector('meta[name="proxy-base-url"]')?.getAttribute('content');
-    if (!baseUrl) {
-      console.error('❌ Could not find proxy base URL meta tag - add this to your head!');
+    
+    if (!proxyPath && !baseUrl) {
+      console.error('❌ Could not find proxy path or base URL meta tags - add these to your head!');
     } else {
-      console.log(`Base URL: ${baseUrl}`);
+      if (proxyPath) console.log(`Proxy Path: ${proxyPath}`);
+      if (baseUrl) console.log(`Base URL: ${baseUrl}`);
       
-      // Check if internal links include the base URL
+      // Check if internal links include the proxy path
       const incorrectLinks = internalLinks.filter(link => {
         // Skip links that are full URLs already
         if (link.href.startsWith('http')) return false;
         
-        // Internal links in proxy mode should include the base URL
-        return !link.href.startsWith(baseUrl);
+        // Internal links in proxy mode should include the proxy path if available
+        if (proxyPath) {
+          return !link.href.startsWith(proxyPath);
+        } else if (baseUrl) {
+          // Fall back to checking baseUrl if no proxyPath
+          return !link.href.startsWith(baseUrl);
+        }
+        return false;
       });
       
       if (incorrectLinks.length > 0) {
-        console.error(`❌ Found ${incorrectLinks.length} internal links that don't include the base URL:`);
+        console.error(`❌ Found ${incorrectLinks.length} internal links with incorrect paths:`);
         incorrectLinks.forEach(link => console.error(`  - ${link.href}`));
       } else {
-        console.log('✅ All internal links include the base URL');
+        console.log('✅ All internal links have correct paths');
       }
     }
   } else {
