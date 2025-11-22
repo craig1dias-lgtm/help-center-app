@@ -21,13 +21,42 @@ export function useProxyAwareLinks() {
     
     // When in proxy, adjust the path
     if (isInShopifyProxy) {
-      // For internal navigation, use the proxy path
-      if (proxyPath) {
-        return `${proxyPath}${normalizedPath}`;
-      } else {
-        // Fallback to baseUrl for assets if no proxy path is detected
-        return `${baseUrl}${normalizedPath}`;
+      // If it's the root path, keep it as is
+      if (normalizedPath === '/' || normalizedPath === '/?') {
+        return proxyPath || baseUrl;
       }
+      
+      // Convert path-based routes to query parameters
+      // Format: /section/id becomes /?page=section&id=id
+      const pathParts = normalizedPath.split('/');
+      
+      // Remove empty first element
+      if (pathParts[0] === '') pathParts.shift();
+      
+      if (pathParts.length >= 1) {
+        // First part is the page/section
+        const page = pathParts[0];
+        
+        // If there's a second part, it's usually an ID
+        const id = pathParts.length >= 2 ? pathParts[1] : '';
+        
+        // Build the query string
+        let queryPath = `/?page=${page}`;
+        if (id) queryPath += `&id=${id}`;
+        
+        // Add any existing query parameters
+        if (normalizedPath.includes('?')) {
+          const queryString = normalizedPath.split('?')[1];
+          if (queryString && !queryString.includes('page=')) {
+            queryPath += `&${queryString}`;
+          }
+        }
+        
+        return `${proxyPath || baseUrl}${queryPath}`;
+      }
+      
+      // Fallback to the original behavior
+      return `${proxyPath || baseUrl}${normalizedPath}`;
     } else {
       return normalizedPath;
     }
@@ -41,11 +70,21 @@ export function useProxyAwareLinks() {
   const getApiUrl = (endpoint) => {
     const normalizedEndpoint = endpoint && endpoint.startsWith('/') ? endpoint : `/${endpoint || ''}`;
     if (isInShopifyProxy) {
-      if (proxyPath) {
-        return `${proxyPath}/api${normalizedEndpoint}`;
-      } else {
-        return `${baseUrl}/api${normalizedEndpoint}`;
-      }
+      // For API calls in proxy mode, we need to use query parameters
+      // Format: /api/search?q=term becomes /?api=search&q=term
+      
+      // Extract the API path and query string
+      const apiPath = normalizedEndpoint.split('?')[0];
+      const queryString = normalizedEndpoint.includes('?') ? normalizedEndpoint.split('?')[1] : '';
+      
+      // Remove the leading slash from API path
+      const apiEndpoint = apiPath.startsWith('/') ? apiPath.substring(1) : apiPath;
+      
+      // Build the query string
+      let queryPath = `/?api=${apiEndpoint}`;
+      if (queryString) queryPath += `&${queryString}`;
+      
+      return `${proxyPath || baseUrl}${queryPath}`;
     } else {
       return `/api${normalizedEndpoint}`;
     }
