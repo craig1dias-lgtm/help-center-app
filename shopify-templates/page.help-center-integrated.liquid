@@ -1,0 +1,111 @@
+{% layout 'theme' %}
+
+<style>
+  /* Custom styles for integrated help center */
+  .help-center-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .help-center-iframe {
+    width: 100%;
+    height: 800px; /* Adjust this height as needed */
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  /* Hide page title if needed */
+  .page-title {
+    display: none;
+  }
+  
+  /* Remove any padding that might be added by the theme */
+  .main-content,
+  .page-width,
+  .page-container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Responsive height adjustments */
+  @media screen and (max-width: 749px) {
+    .help-center-iframe {
+      height: 600px; /* Smaller height for mobile */
+    }
+  }
+  
+  /* Add a loading indicator */
+  .loading-indicator {
+    text-align: center;
+    padding: 2rem;
+    display: none;
+  }
+  
+  .loading-indicator.active {
+    display: block;
+  }
+  
+  .spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #7c3aed;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<div class="help-center-container">
+  <div id="loading" class="loading-indicator active">
+    <div class="spinner"></div>
+    <p>Loading Help Center...</p>
+  </div>
+  
+  <iframe 
+    id="helpCenterFrame"
+    src="{{ page.metafields.custom.help_center_url | default: 'https://help-center-app-three.vercel.app' }}" 
+    class="help-center-iframe" 
+    title="MatchMint Help Center"
+    onload="document.getElementById('loading').classList.remove('active');"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+  </iframe>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Adjust iframe height based on window size
+    function adjustIframeHeight() {
+      const windowHeight = window.innerHeight;
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      const footerHeight = document.querySelector('footer')?.offsetHeight || 0;
+      const iframe = document.getElementById('helpCenterFrame');
+      
+      if (iframe) {
+        // Calculate available height (subtract header, some padding, and optionally footer)
+        const availableHeight = windowHeight - headerHeight - 40; // 40px for padding
+        iframe.style.height = availableHeight + 'px';
+      }
+    }
+    
+    // Initial adjustment
+    adjustIframeHeight();
+    
+    // Adjust on resize
+    window.addEventListener('resize', adjustIframeHeight);
+    
+    // Try to adjust again after iframe loads (content might affect page layout)
+    document.getElementById('helpCenterFrame').addEventListener('load', adjustIframeHeight);
+  });
+</script>
