@@ -8,6 +8,14 @@ import SearchPage from '../components/SearchPage';
 import ContactPage from '../components/ContactPage';
 import { useProxy } from '../components/ProxyContext';
 
+// Import page components for direct navigation
+import PaymentsPage from '../pages/payments';
+import DeliveryPage from '../pages/delivery';
+import OrderProcessingPage from '../pages/order-processing';
+import OrdersPage from '../pages/orders';
+import ReturnsRefundsPage from '../pages/returns-refunds';
+import TechnicalSupportPage from '../pages/technical';
+
 // This is a fallback component in case the imported components don't exist
 const FallbackComponent = ({ name }) => (
   <div className="p-8">
@@ -60,6 +68,30 @@ export default function IndexPage() {
         case 'contact':
           console.log('Loading ContactPage');
           setPageComponent(<ContactPage />);
+          return;
+        case 'payments':
+          console.log('Loading PaymentsPage');
+          setPageComponent(<PaymentsPage paymentsArticles={[]} allCategories={[]} />);
+          return;
+        case 'delivery':
+          console.log('Loading DeliveryPage');
+          setPageComponent(<DeliveryPage deliveryArticles={[]} allCategories={[]} />);
+          return;
+        case 'order-processing':
+          console.log('Loading OrderProcessingPage');
+          setPageComponent(<OrderProcessingPage processingArticles={[]} allCategories={[]} />);
+          return;
+        case 'orders':
+          console.log('Loading OrdersPage');
+          setPageComponent(<OrdersPage ordersArticles={[]} allCategories={[]} />);
+          return;
+        case 'returns-refunds':
+          console.log('Loading ReturnsRefundsPage');
+          setPageComponent(<ReturnsRefundsPage returnsArticles={[]} allCategories={[]} />);
+          return;
+        case 'technical':
+          console.log('Loading TechnicalSupportPage');
+          setPageComponent(<TechnicalSupportPage technicalArticles={[]} allCategories={[]} />);
           return;
         default:
           console.log('Unknown page:', page);
