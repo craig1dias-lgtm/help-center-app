@@ -17,17 +17,15 @@ export default function QueryRouter() {
     // Get the query parameters
     const { page, id, api } = router.query;
     
+    // Log the current query parameters
+    console.log('QueryRouter detected query params:', { page, id, api });
+    
+    // We're no longer replacing the URL as it might interfere with the routing
+    // Instead, we'll let the index.js component handle the routing based on query params
+    
     if (page) {
-      // Handle page navigation
-      let path = `/${page}`;
-      if (id) path += `/${id}`;
-      
-      // Use replace to avoid adding to browser history
-      router.replace(path, undefined, { shallow: true });
-      
-      console.log('QueryRouter navigated to page:', path);
+      console.log('QueryRouter detected page:', page, id);
     } else if (api) {
-      // Handle API calls - this is just for logging, actual API calls are handled differently
       console.log('QueryRouter detected API call:', api);
     }
   }, [router.query, isInShopifyProxy]);
