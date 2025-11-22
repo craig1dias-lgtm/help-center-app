@@ -10,7 +10,7 @@ import getConfig from 'next/config';
 const FIFAHeader = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isInShopifyProxy, baseUrl } = useProxy();
+  const { isInShopifyProxy, baseUrl, proxyPath } = useProxy();
   const { getAssetPath } = useProxyAwareLinks();
   const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
   
@@ -140,7 +140,7 @@ const FIFAHeader = () => {
 };
 
 const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find answers to your questions about MatchMint products and services.' }) => {
-  const { isInShopifyProxy, baseUrl } = useProxy();
+  const { isInShopifyProxy, baseUrl, proxyPath } = useProxy();
   const { getAssetPath } = useProxyAwareLinks();
   const { publicRuntimeConfig } = getConfig() || { publicRuntimeConfig: { basePath: '' } };
   
@@ -154,6 +154,7 @@ const Layout = ({ children, title = 'MatchMint Help Center', description = 'Find
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {isInShopifyProxy && <meta name="proxy-base-url" content={baseUrl} />}
+        {isInShopifyProxy && proxyPath && <meta name="proxy-path" content={proxyPath} />}
         <link rel="icon" href={getAssetPath('/favicon.ico')} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
