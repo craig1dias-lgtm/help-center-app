@@ -25,7 +25,15 @@ export default function IndexPage() {
     // Get the query parameters
     const { page, id } = router.query;
     
-    // If we're in the Shopify proxy and have a page parameter, handle routing
+    // Log the current router state for debugging
+    console.log('Index.js router state:', { 
+      query: router.query, 
+      pathname: router.pathname,
+      asPath: router.asPath,
+      isInShopifyProxy
+    });
+    
+    // Handle routing based on query parameters
     if (page) {
       console.log('Query parameter routing:', page, id);
       
@@ -33,26 +41,33 @@ export default function IndexPage() {
       switch(page) {
         case 'articles':
           if (id) {
+            console.log('Loading ArticlePage with id:', id);
             setPageComponent(<ArticlePage articleId={id} />);
             return;
           }
           break;
         case 'categories':
           if (id) {
+            console.log('Loading CategoryPage with id:', id);
             setPageComponent(<CategoryPage categoryId={id} />);
             return;
           }
           break;
         case 'search':
+          console.log('Loading SearchPage with query:', id);
           setPageComponent(<SearchPage query={id} />);
           return;
         case 'contact':
+          console.log('Loading ContactPage');
           setPageComponent(<ContactPage />);
           return;
+        default:
+          console.log('Unknown page:', page);
       }
     }
     
     // Default to the home page
+    console.log('Loading HomePage (default)');
     setPageComponent(<HomePage />);
   }, [router.query, isInShopifyProxy]);
   
