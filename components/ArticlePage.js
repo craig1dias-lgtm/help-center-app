@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { getSortedArticlesData } from '../lib/articles';
+import { getSortedArticlesData } from '../lib/articles-browser';
 
 // This is a placeholder component - replace with your actual article page implementation
 export default function ArticlePage({ id }) {
