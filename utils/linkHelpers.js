@@ -5,7 +5,7 @@ import { useProxy } from '../components/ProxyContext';
  * Use this to ensure links work correctly in both direct and proxy environments
  */
 export function useProxyAwareLinks() {
-  const { isInShopifyProxy, baseUrl } = useProxy();
+  const { isInShopifyProxy, baseUrl, proxyPath } = useProxy();
   
   /**
    * Transforms a path to work in both direct and proxy environments
@@ -20,7 +20,17 @@ export function useProxyAwareLinks() {
     const normalizedPath = path && path.startsWith('/') ? path : `/${path || ''}`;
     
     // When in proxy, adjust the path
-    return isInShopifyProxy ? `${baseUrl}${normalizedPath}` : normalizedPath;
+    if (isInShopifyProxy) {
+      // For internal navigation, use the proxy path
+      if (proxyPath) {
+        return `${proxyPath}${normalizedPath}`;
+      } else {
+        // Fallback to baseUrl for assets if no proxy path is detected
+        return `${baseUrl}${normalizedPath}`;
+      }
+    } else {
+      return normalizedPath;
+    }
   };
   
   /**
@@ -30,7 +40,15 @@ export function useProxyAwareLinks() {
    */
   const getApiUrl = (endpoint) => {
     const normalizedEndpoint = endpoint && endpoint.startsWith('/') ? endpoint : `/${endpoint || ''}`;
-    return isInShopifyProxy ? `${baseUrl}/api${normalizedEndpoint}` : `/api${normalizedEndpoint}`;
+    if (isInShopifyProxy) {
+      if (proxyPath) {
+        return `${proxyPath}/api${normalizedEndpoint}`;
+      } else {
+        return `${baseUrl}/api${normalizedEndpoint}`;
+      }
+    } else {
+      return `/api${normalizedEndpoint}`;
+    }
   };
   
   /**
@@ -43,7 +61,12 @@ export function useProxyAwareLinks() {
     if (path.startsWith('http')) return path;
     
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-    return isInShopifyProxy ? `${baseUrl}${normalizedPath}` : normalizedPath;
+    if (isInShopifyProxy) {
+      // For assets, we typically need the full baseUrl
+      return `${baseUrl}${normalizedPath}`;
+    } else {
+      return normalizedPath;
+    }
   };
   
   /**
