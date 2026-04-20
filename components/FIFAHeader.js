@@ -66,11 +66,6 @@ const FIFAHeader = () => {
               </Link>
             </li>
             <li className="fifa-list-menu__item">
-              <Link href="/pages/guides" className="fifa-list-menu__item--link">
-                GUIDES
-              </Link>
-            </li>
-            <li className="fifa-list-menu__item">
               <Link href="/" className="fifa-list-menu__item--link fifa-list-menu__item--active">
                 HELP CENTER
               </Link>
@@ -108,11 +103,6 @@ const FIFAHeader = () => {
             <li className="fifa-mobile-menu__item">
               <Link href="/pages/support-page" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
                 SUPPORT
-              </Link>
-            </li>
-            <li className="fifa-mobile-menu__item">
-              <Link href="/pages/guides" className="fifa-mobile-menu__link" onClick={toggleMobileMenu}>
-                GUIDES
               </Link>
             </li>
             <li className="fifa-mobile-menu__item">
